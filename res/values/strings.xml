@@ -6,7 +6,7 @@
     <string name="title_activity_main">DuckDroid</string>
     <string name="main_dd_icon">DuckDroid</string>
     <string name="edit_search">Query</string>
-    <string name="button_search">Search</string>
+    <string name="button_search">>></string>
     
 
 </resources>
