@@ -6,7 +6,6 @@ import net.nakama.duckdroid.R.menu;
 import net.nakama.duckdroid.ui.listeners.EventState;
 import net.nakama.duckdroid.ui.listeners.ListSelectedListener;
 import net.nakama.duckdroid.ui.listeners.ThreadCompletedListener;
-import net.nakama.layout.test.testlayout1.fragments.MyListFrament;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Fragment;
