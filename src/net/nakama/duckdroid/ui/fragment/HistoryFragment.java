@@ -13,7 +13,20 @@
 package net.nakama.duckdroid.ui.fragment;
 
 import android.app.ListFragment;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
 public class HistoryFragment extends ListFragment {
+	private String[] myList = {"search 1", "search 2", "search 3","search 4"};
+	
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        // We need to use a different list item layout for devices older than Honeycomb
+        int layout = android.R.layout.simple_list_item_activated_1;
+
+        // Create an array adapter for the list view, using the Ipsum headlines array
+        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, myList));
+    }
 }

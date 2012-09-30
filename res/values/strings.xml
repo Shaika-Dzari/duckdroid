@@ -5,10 +5,42 @@
     <string name="title_activity_main">DuckDroid</string>
     <string name="main_dd_icon">DuckDroid</string>
     <string name="title_activity_duckdroid">Duckdroid</string>
-    
-    
-    <!-- NEW -->
+
+    <!-- Layouts and Fragments -->
     <string name="edit_search_hint">Enter your query</string>
     <string name="btn_search_text">SEARCH</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_pref">Preferences</string>
+
+    <!-- Preferences -->
+    <string name="pref_history">Save history</string>
+    <string name="pref_history_summary">Save recents queries</string>
+    <string name="pref_bangprofile">!Bang profile</string>
+    <string name="pref_bangprofile_summary">Choose a specific type of !bang</string>
+    <string name="pref_browser">Browser Link</string>
+    <string name="pref_browser_summary">Add a shortcut after your query result</string>
+
+    <string-array name="pref_bang_list">
+        <item>DuckDroid</item>
+        <item>Tech</item>
+        <item>Shopping</item>
+        <item>Research</item>
+        <item>Online Services</item>
+        <item>News</item>
+        <item>Multimedia</item>
+        <item>Entertainment</item>
+    </string-array>
+    <string-array name="pref_bang_list_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
+    <string name="title_activity_my_preference">Preferences</string>
 
 </resources>

@@ -14,7 +14,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light" >
-        
         <activity
             android:name=".ui.Duckdroid"
             android:label="@string/title_activity_duckdroid" >
@@ -23,6 +22,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.MyPreferenceActivity"
+            android:label="@string/title_activity_my_preference" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.nakama.duckdroid.ui.Duckdroid" />
         </activity>
     </application>
 

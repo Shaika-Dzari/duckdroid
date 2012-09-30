@@ -1,9 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    		  android:orientation="vertical"
+    		  android:orientation="horizontal"
     		  android:padding="5dp"
     		  android:layout_width="match_parent"
-    		  android:layout_height="match_parent">
-    	
+    		  android:layout_height="match_parent"
+    		  android:baselineAligned="false">
+    <!-- 	
     <LinearLayout android:orientation="horizontal"
         		  android:layout_width="fill_parent"
         		  android:layout_height="wrap_content">
@@ -22,11 +23,27 @@
             style="@style/myButton" />
          
     </LinearLayout>
-    
-    <LinearLayout android:orientation="vertical"
-	    		  android:padding="5dp"
-	    		  android:layout_width="match_parent"
-	    		  android:layout_height="match_parent" 
-	    		  android:id="@+id/fragment_container" />
+     -->
+     
+   <LinearLayout android:id="@+id/containerpanel"
+       				android:orientation="horizontal"
+        		  android:layout_width="fill_parent"
+        		  android:layout_height="wrap_content"
+        		  android:baselineAligned="false">
+	    		  
+	   <FrameLayout
+            android:id="@+id/leftpane"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".2" />
+	   
+        <FrameLayout
+            android:id="@+id/rightpane"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+        </FrameLayout>
+        		  
+    </LinearLayout>
     
 </LinearLayout>
