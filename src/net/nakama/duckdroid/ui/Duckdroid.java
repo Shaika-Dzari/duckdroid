@@ -2,19 +2,27 @@ package net.nakama.duckdroid.ui;
 
 import net.nakama.duckdroid.R;
 import net.nakama.duckdroid.net.DDGHttpClient;
+import net.nakama.duckdroid.ui.fragment.AbstractFragment;
 import net.nakama.duckdroid.ui.fragment.BangFragment;
 import net.nakama.duckdroid.ui.fragment.HistoryFragment;
 import net.nakama.duckdroid.ui.fragment.ResultFragment;
 import net.nakama.duckdroid.ui.listeners.EventState;
 import net.nakama.duckdroid.ui.listeners.ListSelectedListener;
 import net.nakama.duckdroid.ui.listeners.ThreadCompletedListener;
+import net.nakama.duckdroid.util.DuckDroidPreferenceKey;
 import net.nakama.duckquery.net.response.ZeroClickResponse;
+import net.nakama.duckquery.net.response.api.RelatedTopic;
+import net.nakama.duckquery.net.response.api.ResponseType;
+import net.nakama.duckquery.net.response.api.Topic;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +32,11 @@ import android.widget.SearchView;
 public class Duckdroid extends FragmentActivity implements ListSelectedListener, ThreadCompletedListener {
 
 	private static final String TAG = "Duckdroid";
+	private MenuItem loadingItem;
+	private BangFragment bangFragment;
+	private HistoryFragment historyFragment;
+	
+	private SharedPreferences sharedPref;
 	
 	private class MySearchViewOnQueryListener implements SearchView.OnQueryTextListener {
 
@@ -34,6 +47,7 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
 
 		@Override
 		public boolean onQueryTextSubmit(String query) {
+			loadingItem.setVisible(true);
 			search(query);
 			return true;
 		}
@@ -46,12 +60,16 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_duckdroid);
         
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        
         initialLoad();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_duckdroid, menu);
+        loadingItem = menu.findItem(R.id.menu_loading);
+        
         
         MySearchViewOnQueryListener querySubmitListener = new MySearchViewOnQueryListener();
         
@@ -73,6 +91,7 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
     	
     	switch (item.getItemId()) {
         case R.id.menu_settings_s:
+        	
             Intent settingIten = new Intent(this, MyPreferenceActivity.class);
             startActivity(settingIten);
             return true;
@@ -104,6 +123,8 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
 		if (result instanceof ZeroClickResponse) {
 			//result = (ZeroClickResponse) result;
 			
+			loadingItem.setVisible(false);
+			
 			displayResult((ZeroClickResponse)result);
 		}
 	}
@@ -117,8 +138,16 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
         FragmentManager manager = getFragmentManager();
         FragmentTransaction trx = manager.beginTransaction();
         
+        /*
         ResultFragment rf = new ResultFragment(result);
 		
+        trx.replace(R.id.rightpane, rf);
+        */
+        
+        //trx.remove(historyFragment);
+        
+        ResultFragment rf = new ResultFragment(result);
+        //trx.add(R.id.rightpane, rf);
         trx.replace(R.id.rightpane, rf);
         trx.commit();
 	}
@@ -131,20 +160,25 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
 	 */
 	private void initialLoad() {
 		
+		boolean withHistory = sharedPref.getBoolean(DuckDroidPreferenceKey.PREFERENCE_HISTORY, true);
+		String bangProfile = sharedPref.getString(DuckDroidPreferenceKey.PREFERENCE_BANGPROFILE, "DuckDroid");
+		
 		// Fragment setup
         FragmentManager manager = getFragmentManager();
         FragmentTransaction trx = manager.beginTransaction();
         
         // Add Bang fragment
-        Fragment bang = new BangFragment();
+        
+        bangFragment = new BangFragment(getResources().getStringArray(R.array.bang_DuckDroid));
+        trx.add(R.id.leftpane, bangFragment);
         //manager.beginTransaction()
         
         // Add History
-        Fragment hist = new HistoryFragment();
+        if (withHistory) {
+        	historyFragment = new HistoryFragment();
+        	trx.add(R.id.rightpane, historyFragment);        	
+        }
         
-        
-        trx.add(R.id.leftpane, bang);
-        trx.add(R.id.rightpane, hist);
         trx.commit();
         
         ActionBar actionBar = getActionBar();

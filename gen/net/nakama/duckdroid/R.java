@@ -9,31 +9,45 @@ package net.nakama.duckdroid;
 
 public final class R {
     public static final class array {
+        public static final int bang_DuckDroid=0x7f060001;
+        public static final int bang_Entertainment=0x7f060008;
+        public static final int bang_Multimedia=0x7f060007;
+        public static final int bang_News=0x7f060006;
+        public static final int bang_OnlineServices=0x7f060005;
+        public static final int bang_Research=0x7f060004;
+        public static final int bang_Shopping=0x7f060003;
+        public static final int bang_Tech=0x7f060002;
         public static final int pref_bang_list=0x7f060000;
-        public static final int pref_bang_list_value=0x7f060001;
     }
     public static final class attr {
     }
     public static final class drawable {
-        public static final int duckdroid=0x7f020000;
-        public static final int ic_action_search=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
+        public static final int action_bg=0x7f020000;
+        public static final int duckdroid=0x7f020001;
+        public static final int ic_action_search=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int btn_search=0x7f090005;
-        public static final int containerpanel=0x7f090000;
-        public static final int edit_search=0x7f090004;
-        public static final int fragment_prefcontainer=0x7f090003;
-        public static final int leftpane=0x7f090001;
-        public static final int menu_search=0x7f090006;
-        public static final int menu_settings=0x7f090008;
-        public static final int menu_settings_s=0x7f090007;
-        public static final int rightpane=0x7f090002;
+        public static final int abstracttext=0x7f090004;
+        public static final int btn_search=0x7f090006;
+        public static final int edit_search=0x7f090005;
+        public static final int fragment_prefcontainer=0x7f090002;
+        public static final int leftpane=0x7f090000;
+        public static final int menu_loading=0x7f090008;
+        public static final int menu_search=0x7f090009;
+        public static final int menu_settings=0x7f09000b;
+        public static final int menu_settings_s=0x7f09000a;
+        public static final int rightpane=0x7f090001;
+        public static final int text=0x7f090003;
+        public static final int url=0x7f090007;
     }
     public static final class layout {
         public static final int activity_duckdroid=0x7f030000;
         public static final int activity_my_preference=0x7f030001;
-        public static final int menu_search=0x7f030002;
+        public static final int bangrow=0x7f030002;
+        public static final int fragment_abstract=0x7f030003;
+        public static final int menu_search=0x7f030004;
+        public static final int resultrow=0x7f030005;
     }
     public static final class menu {
         public static final int activity_duckdroid=0x7f080000;
@@ -52,8 +66,8 @@ public final class R {
         public static final int menu_settings=0x7f050001;
         public static final int pref_bangprofile=0x7f05000b;
         public static final int pref_bangprofile_summary=0x7f05000c;
-        public static final int pref_browser=0x7f05000d;
-        public static final int pref_browser_summary=0x7f05000e;
+        public static final int pref_bangsubmit=0x7f05000d;
+        public static final int pref_bangsubmit_summary=0x7f05000e;
         /**  Preferences 
          */
         public static final int pref_history=0x7f050009;
@@ -64,8 +78,10 @@ public final class R {
         public static final int title_activity_pref=0x7f050008;
     }
     public static final class style {
-        public static final int AppTheme=0x7f070000;
-        public static final int myButton=0x7f070001;
+        public static final int AppTheme=0x7f070003;
+        public static final int Theme_DuckDroid=0x7f070002;
+        public static final int darkactionbar=0x7f070001;
+        public static final int myButton=0x7f070000;
     }
     public static final class xml {
         public static final int preferences=0x7f040000;

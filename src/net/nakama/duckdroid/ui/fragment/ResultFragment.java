@@ -15,7 +15,11 @@ package net.nakama.duckdroid.ui.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.nakama.duckdroid.R;
+import net.nakama.duckdroid.datamodel.ResultRow;
+import net.nakama.duckdroid.ui.adapter.ResultRowAdapter;
 import net.nakama.duckquery.net.response.ZeroClickResponse;
+import net.nakama.duckquery.net.response.api.RelatedTopic;
 import net.nakama.duckquery.net.response.api.ResponseType;
 import net.nakama.duckquery.net.response.api.Result;
 import net.nakama.duckquery.net.response.api.Topic;
@@ -35,26 +39,45 @@ public class ResultFragment extends ListFragment {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ResultRowAdapter adapter;
+        List<ResultRow> rows = new ArrayList<ResultRow>();
+        //ResultRow r;
         
-        List<String> l = new ArrayList<String>();
+        if (this.result.getAbstractText() != null) {
+        	rows.add(new ResultRow(this.result.getAbstractText(), this.result.getAbstractURL()));
+        }
         
-        if (this.result.getType() == ResponseType.D) {
-        	
-        	
-        	for (Result r : this.result.getRelatedTopics().getResults()) {
-        		l.add(r.getText() + " | " + r.getUrl());
-        	}
-        	
-        	
-        	for (Topic t : this.result.getRelatedTopics().getTopics()) {
-        		l.add(t.getName() + " | " + t.getResults().size());
+        if (this.result.getResults() != null && this.result.getResults().size() > 0) {
+        	for (Result r : this.result.getResults()) {
+        		rows.add(new ResultRow(r.getText(), r.getUrl()));
         	}
         }
-
-        // We need to use a different list item layout for devices older than Honeycomb
-        int layout = android.R.layout.simple_list_item_activated_1;
+        
+        if (this.result.getRelatedTopics() != null) {
+        	RelatedTopic rt = this.result.getRelatedTopics();
+        	
+        	if (rt.getResults() != null && rt.getResults().size() > 0) {
+            	for (Result r : rt.getResults()) {
+            		rows.add(new ResultRow(r.getText(), r.getUrl()));
+            	}
+            }
+        	
+        	if (rt.getTopics() != null && rt.getTopics().size() > 0) {
+        		
+        		for (Topic t : rt.getTopics()) {
+        			for (Result r : t.getResults()) {
+                		rows.add(new ResultRow(r.getText(), r.getUrl()));
+                	}
+        		}
+        		
+        	}
+        }
+        
+        adapter = new ResultRowAdapter(getActivity(), R.layout.resultrow, rows);
+        
+        setListAdapter(adapter);
 
         // Create an array adapter for the list view, using the Ipsum headlines array
-        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, l));
+        //setListAdapter(new ArrayAdapter<String>(getActivity(), layout, l));
     }
 }

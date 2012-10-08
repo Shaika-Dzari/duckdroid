@@ -15,32 +15,148 @@
     <!-- Preferences -->
     <string name="pref_history">Save history</string>
     <string name="pref_history_summary">Save recents queries</string>
-    <string name="pref_bangprofile">!Bang profile</string>
+    <string name="pref_bangprofile">!bang profile</string>
     <string name="pref_bangprofile_summary">Choose a specific type of !bang</string>
-    <string name="pref_browser">Browser Link</string>
-    <string name="pref_browser_summary">Add a shortcut after your query result</string>
+    <string name="pref_bangsubmit">!bang immediate query</string>
+    <string name="pref_bangsubmit_summary">Perform query immediately after a !bang</string>
 
     <string-array name="pref_bang_list">
         <item>DuckDroid</item>
         <item>Tech</item>
         <item>Shopping</item>
         <item>Research</item>
-        <item>Online Services</item>
+        <item>OnlineServices</item>
         <item>News</item>
         <item>Multimedia</item>
         <item>Entertainment</item>
     </string-array>
-    <string-array name="pref_bang_list_value">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-    </string-array>
-
+    
     <string name="title_activity_my_preference">Preferences</string>
+    
+    <string-array name="bang_DuckDroid">
+        <item>!DDG</item>
+        <item>!g</item>
+        <item>!mdn</item>
+        <item>!java</item>
+        <item>!android</item>
+        <item>!man</item>
+        <item>!w</item>
+        <item>!ars</item>
+        <item>!xkcd</item>
+        <item>!anidb</item>
+        <item>!yt</item>
+        <item>!wg</item>
+    </string-array>
+    
+    <string-array name="bang_Tech">
+        <item>!DDG</item>
+        <item>!so</item>
+        <item>!appledev</item>
+        <item>!android</item>
+        <item>!java</item>
+        <item>!mdn</item>
+        <item>!css</item>
+        <item>!py</item>
+        <item>!ruby</item>
+        <item>!cpp</item>
+        <item>!perl</item>
+        <item>!github</item>
+        <item>!ars</item>
+        <item>!/.</item>
+    </string-array>
+    
+    <string-array name="bang_Shopping">
+        <item>!DDG</item>
+        <item>!a</item>
+        <item>!amca</item>
+        <item>!ncix</item>
+        <item>!ebay</item>
+        <item>!staples</item>
+        <item>!bestbuy</item>
+        <item>!tigerdirect</item>
+        <item>!bestbuy</item>
+        <item>!macys</item>
+        <item>!walmart</item>
+        <item>!costco</item>
+        <item>!target</item>
+        <item>!ikea</item>
+    </string-array>
+    
+    <string-array name="bang_Research">
+        <item>!DDG</item>
+        <item>!w</item>
+        <item>!nasa</item>
+        <item>!academic</item>
+        <item>!mathoverflow</item>
+        <item>!allrecipes</item>
+        <item>!cdc</item>
+        <item>!findlaw</item>
+        <item>!artist</item>
+        <item>!gutenberg</item>
+        <item>!quotes</item>
+        <item>!fd</item>
+        <item>!tripadvisor</item>
+    </string-array>
+    
+    <string-array name="bang_OnlineServices">
+        <item>!DDG</item>
+        <item>!g</item>
+        <item>!gt</item>
+        <item>!yt</item>
+        <item>!tw</item>
+        <item>!li</item>
+        <item>!fb</item>
+        <item>!reddit</item>
+        <item>!myspace</item>
+        <item>!indeed</item>
+        <item>!sh</item>
+        <item>!capost</item>
+        <item>!fedex</item>
+        <item>!purolator</item>
+        <item>!ups</item>
+    </string-array>
+    
+    <string-array name="bang_News">
+        <item>!DDG</item>
+        <item>!cbc</item>
+        <item>!bbc</item>
+        <item>!cnn</item>
+        <item>!foxnews</item>
+        <item>!msnbc</item>
+        <item>!guardian</item>
+        <item>!nyt</item>
+        <item>!reuters</item>
+    </string-array>
+    
+    <string-array name="bang_Multimedia">
+        <item>!DDG</item>
+        <item>!yt</item>
+        <item>!dailymotion</item>
+        <item>!hulu</item>
+        <item>!crunchyroll</item>
+        <item>!7digital</item>
+        <item>!allmusic</item>
+        <item>!amazonmp3</item>
+        <item>!jamendo</item>
+        <item>!metalstorm</item>
+    </string-array>
+    
+    <string-array name="bang_Entertainment">
+        <item>!DDG</item>
+        <item>!/.</item>
+        <item>!xkcd</item>
+        <item>!gamespot</item>
+        <item>!minecraft</item>
+        <item>!imdb</item>
+        <item>!allmovie</item>
+        <item>!allocine</item>
+        <item>!rt</item>
+        <item>!netflix</item>
+        <item>!espn</item>
+        <item>!tvguide</item>
+        <item>!4chan</item>
+        <item>!bakabt</item>
+        <item>!osub</item>
+    </string-array>
 
 </resources>

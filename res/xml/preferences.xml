@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <CheckBoxPreference
-      android:key="checkbox"
+      android:key="pref_history"
       android:title="@string/pref_history"
       android:summary="@string/pref_history_summary"
       android:defaultValue="true"
     />
     
     <ListPreference
-      android:key="list"
+      android:key="pref_bangprofile"
       android:title="@string/pref_bangprofile"
       android:summary="@string/pref_bangprofile_summary"
       android:entries="@array/pref_bang_list"
-      android:entryValues="@array/pref_bang_list_value"
+      android:entryValues="@array/pref_bang_list"
       android:dialogTitle="@string/pref_bangprofile" 
-      android:defaultValue="0" />
+      android:defaultValue="DuckDroid" />
     
     <CheckBoxPreference
-      android:key="checkbox"
-      android:title="@string/pref_browser"
-      android:summary="@string/pref_browser_summary"
+      android:key="pref_bangsubmit"
+      android:title="@string/pref_bangsubmit"
+      android:summary="@string/pref_bangsubmit_summary"
       android:defaultValue="true"
     />
 

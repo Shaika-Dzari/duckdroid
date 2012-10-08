@@ -35,7 +35,7 @@ public class DDGHttpClient extends AsyncTask<String, Void, ZeroClickResponse> {
 	 */
 	@Override
 	protected ZeroClickResponse doInBackground(String... params) {
-		ZeroClickResponse response = new ZeroClickResponse();
+		ZeroClickResponse response = null;
 		
 		DuckQuery query = new DuckQuery();
 		
