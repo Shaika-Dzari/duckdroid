@@ -32,7 +32,7 @@ public class HistoryUtils extends SQLiteOpenHelper {
     private static final String SQL_CREATE = "create table " + HistoryEntry.TABLE_NAME + "(" +
     											HistoryEntry._ID + " INTEGER PRIMARY KEY," + 
     											HistoryEntry.COLUMN_INSERTDATE + TEXT_TYPE + COMMA_SEP + 
-    											HistoryEntry.COLUMN_QUERY + TEXT_TYPE + COMMA_SEP + ")";
+    											HistoryEntry.COLUMN_QUERY + TEXT_TYPE + ")";
     private static final String SQL_DROP = "DROP TABLE IF EXISTS " + HistoryEntry.TABLE_NAME;
 	
 	
@@ -74,19 +74,21 @@ public class HistoryUtils extends SQLiteOpenHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		String[] projection = {HistoryEntry.COLUMN_INSERTDATE, HistoryEntry.COLUMN_QUERY};
 		List<HistoryEntry> lst = new ArrayList<HistoryEntry>();
+		String uqy, insd;
+		Cursor c = db.query(HistoryEntry.TABLE_NAME, projection, null, null, null, null, "" + HistoryEntry.COLUMN_INSERTDATE + " DESC", "30");
 		
-		Cursor c = db.query(HistoryEntry.TABLE_NAME, projection, null, null, null, null, "date(" + HistoryEntry.COLUMN_INSERTDATE + ") DESC", "LIMIT 50");
-		
-		c.moveToFirst();
-		
-		while (c.moveToNext()) {
-			lst.add(new HistoryEntry(c.getString(1), c.getString(2)));
+		if (c.moveToFirst()) {
+			do {
+				uqy = c.getString(c.getColumnIndexOrThrow(HistoryEntry.COLUMN_QUERY));
+				insd = c.getString(c.getColumnIndexOrThrow(HistoryEntry.COLUMN_INSERTDATE));
+				lst.add(new HistoryEntry(insd, uqy));				
+			} while(c.moveToNext());
 		}
 		
 		c.close();
 		db.close();
 		
-		return null;
+		return lst;
 	}
 	
 	public void close() {

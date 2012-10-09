@@ -8,11 +8,12 @@
 
     <!-- Layouts and Fragments -->
     <string name="edit_search_hint">Enter your query</string>
-    <string name="btn_search_text">SEARCH</string>
+    <string name="btn_search_text">Search</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_pref">Preferences</string>
 
     <!-- Preferences -->
+    <string name="title_activity_my_preference">Preferences</string>
     <string name="pref_history">Save history</string>
     <string name="pref_history_summary">Save recents queries</string>
     <string name="pref_bangprofile">!bang profile</string>
@@ -31,7 +32,7 @@
         <item>Entertainment</item>
     </string-array>
     
-    <string name="title_activity_my_preference">Preferences</string>
+    
     
     <string-array name="bang_DuckDroid">
         <item>!DDG</item>

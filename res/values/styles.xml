@@ -1,17 +1,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-   
-
-    <style name="myButton">
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:paddingRight">5dp</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">2dp</item>
-        <item name="android:layout_marginRight">2dp</item>
-        <item name="android:minWidth">130px</item>
-    </style>
-    
     <style name="darkactionbar" parent="android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@drawable/action_bg</item>
         <item name="android:textSize">12dp</item>

@@ -13,13 +13,20 @@
 package net.nakama.duckdroid.ui.fragment;
 
 
-import net.nakama.duckdroid.R;
+import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class BangFragment extends ListFragment {
 	private String[] bangArray = null;
+	private OnBangLineSelectedListener aCallback;
+	
+	public interface OnBangLineSelectedListener {
+		public void onBangSelect(String bang);
+	}
 	
 	public BangFragment(String[] bangArray) {
 		this.bangArray = bangArray;
@@ -36,4 +43,22 @@ public class BangFragment extends ListFragment {
         // Create an array adapter for the list view, using the Ipsum headlines array
         setListAdapter(new ArrayAdapter<String>(getActivity(), layout, bangArray));
     }
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			aCallback = (OnBangLineSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnBangLineSelectedListener");
+        }
+	}
+	
+	@Override
+	public void  onListItemClick(ListView l, View v, int position, long id) {
+		String bang = this.bangArray[position];
+		aCallback.onBangSelect(bang);
+	}
+
 }

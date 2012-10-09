@@ -1,26 +1,26 @@
 package net.nakama.duckdroid.ui;
 
+import java.util.Date;
+
 import net.nakama.duckdroid.R;
+import net.nakama.duckdroid.datamodel.HistoryEntry;
 import net.nakama.duckdroid.net.DDGHttpClient;
-import net.nakama.duckdroid.ui.fragment.AbstractFragment;
 import net.nakama.duckdroid.ui.fragment.BangFragment;
 import net.nakama.duckdroid.ui.fragment.HistoryFragment;
 import net.nakama.duckdroid.ui.fragment.ResultFragment;
 import net.nakama.duckdroid.ui.listeners.EventState;
-import net.nakama.duckdroid.ui.listeners.ListSelectedListener;
 import net.nakama.duckdroid.ui.listeners.ThreadCompletedListener;
+import net.nakama.duckdroid.util.DateUtils;
 import net.nakama.duckdroid.util.DuckDroidPreferenceKey;
+import net.nakama.duckdroid.util.HistoryUtils;
 import net.nakama.duckquery.net.response.ZeroClickResponse;
-import net.nakama.duckquery.net.response.api.RelatedTopic;
-import net.nakama.duckquery.net.response.api.ResponseType;
-import net.nakama.duckquery.net.response.api.Topic;
 import android.app.ActionBar;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
@@ -29,14 +29,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
-public class Duckdroid extends FragmentActivity implements ListSelectedListener, ThreadCompletedListener {
+public class Duckdroid extends FragmentActivity implements BangFragment.OnBangLineSelectedListener, 
+															   HistoryFragment.OnHistoryLineSelectedListener,
+															   ThreadCompletedListener {
 
 	private static final String TAG = "Duckdroid";
 	private MenuItem loadingItem;
 	private BangFragment bangFragment;
 	private HistoryFragment historyFragment;
-	
 	private SharedPreferences sharedPref;
+	private HistoryUtils historyUtils;
+	private boolean withHistory = true;
+	private String bangProfile;
+	private boolean bangSubmit = true;
 	
 	private class MySearchViewOnQueryListener implements SearchView.OnQueryTextListener {
 
@@ -47,12 +52,9 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
 
 		@Override
 		public boolean onQueryTextSubmit(String query) {
-			loadingItem.setVisible(true);
-			search(query);
+			search(query, true);
 			return true;
 		}
-		
-		
 	}
 	
     @Override
@@ -60,6 +62,7 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_duckdroid);
         
+        historyUtils = new HistoryUtils(this);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         
         initialLoad();
@@ -70,17 +73,12 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
         getMenuInflater().inflate(R.menu.activity_duckdroid, menu);
         loadingItem = menu.findItem(R.id.menu_loading);
         
-        
         MySearchViewOnQueryListener querySubmitListener = new MySearchViewOnQueryListener();
         
         // Set focus in searchwidget
-        //ActionBar actionBar = getActionBar();
         SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setIconifiedByDefault(false);
         searchView.setFocusable(true);
-        //searchView.requestFocus();
-        
-        //searchView.setOn
         searchView.setOnQueryTextListener(querySubmitListener);
      
         return true;
@@ -101,57 +99,49 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
     	}
     }
 
-    private void search(String query) {
+    private void search(String query, boolean logToHistory) {
+    	loadingItem.setVisible(true);
     	DDGHttpClient httpClient = new DDGHttpClient(this);
     	httpClient.execute(new String[]{query});
+    	
+    	if (logToHistory) 
+    		addToHistory(query);
     }
     
-	/* (non-Javadoc)
-	 * @see net.nakama.duckdroid.ui.listeners.ListSelectedListener#onListSelected(int)
-	 */
-	@Override
-	public void onListSelected(int position) {
-		// TODO Auto-generated method stub
-		
-	}
+    private void addToHistory(String userQuery) {
+    	ContentValues v = new ContentValues();
+    	v.put(HistoryEntry.COLUMN_QUERY, userQuery);
+    	v.put(HistoryEntry.COLUMN_INSERTDATE, DateUtils.format(new Date()));
+    	
+    	historyUtils.insert(v);
+    }
 
-	/* (non-Javadoc)
-	 * @see net.nakama.duckdroid.ui.listeners.ThreadCompletedListener#onThreadCompleted(net.nakama.duckdroid.ui.listeners.EventState, java.lang.Object)
-	 */
-	@Override
-	public void onThreadCompleted(EventState state, Object result) {
-		if (result instanceof ZeroClickResponse) {
-			//result = (ZeroClickResponse) result;
-			
-			loadingItem.setVisible(false);
-			
-			displayResult((ZeroClickResponse)result);
-		}
-	}
+	
 
 	/**
 	 * 
 	 * @param result
 	 */
-	private void displayResult(ZeroClickResponse result) {
-		// Fragment setup
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction trx = manager.beginTransaction();
-        
-        /*
-        ResultFragment rf = new ResultFragment(result);
+	private void manageResult(ZeroClickResponse result) {
 		
-        trx.replace(R.id.rightpane, rf);
-        */
-        
-        //trx.remove(historyFragment);
-        
-        ResultFragment rf = new ResultFragment(result);
-        //trx.add(R.id.rightpane, rf);
-        trx.replace(R.id.rightpane, rf);
-        trx.commit();
+		if (result.isBang() && result.getRedirect() != null) {
+				startBrowserIntent(result.getRedirect());
+				
+		} else {
+			// Fragment setup
+			FragmentManager manager = getFragmentManager();
+			FragmentTransaction trx = manager.beginTransaction();
+			ResultFragment rf = new ResultFragment(result);
+			trx.replace(R.id.rightpane, rf);
+			trx.commit();			
+		}
 	}
 	
+	private void startBrowserIntent(String url) {
+		Uri uri = Uri.parse(url);
+		Intent browser = new Intent(Intent.ACTION_WEB_SEARCH, uri);
+		startActivity(browser);
+	}
 	
 	/**
 	 * initialLoad
@@ -160,8 +150,9 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
 	 */
 	private void initialLoad() {
 		
-		boolean withHistory = sharedPref.getBoolean(DuckDroidPreferenceKey.PREFERENCE_HISTORY, true);
-		String bangProfile = sharedPref.getString(DuckDroidPreferenceKey.PREFERENCE_BANGPROFILE, "DuckDroid");
+		this.withHistory = sharedPref.getBoolean(DuckDroidPreferenceKey.PREFERENCE_HISTORY, true);
+		this.bangProfile = "bang_" + sharedPref.getString(DuckDroidPreferenceKey.PREFERENCE_BANGPROFILE, "DuckDroid");
+		this.bangSubmit = sharedPref.getBoolean(DuckDroidPreferenceKey.PREFERENCE_BANGSUBMIT, true);
 		
 		// Fragment setup
         FragmentManager manager = getFragmentManager();
@@ -169,13 +160,17 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
         
         // Add Bang fragment
         
-        bangFragment = new BangFragment(getResources().getStringArray(R.array.bang_DuckDroid));
+        int aid = getResources().getIdentifier(bangProfile, "array", getPackageName());
+        
+        bangFragment = new BangFragment(getResources().getStringArray(aid));
+        
         trx.add(R.id.leftpane, bangFragment);
         //manager.beginTransaction()
         
         // Add History
         if (withHistory) {
-        	historyFragment = new HistoryFragment();
+        	
+        	historyFragment = new HistoryFragment(this.historyUtils.select());
         	trx.add(R.id.rightpane, historyFragment);        	
         }
         
@@ -183,5 +178,42 @@ public class Duckdroid extends FragmentActivity implements ListSelectedListener,
         
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see net.nakama.duckdroid.ui.listeners.ThreadCompletedListener#onThreadCompleted(net.nakama.duckdroid.ui.listeners.EventState, java.lang.Object)
+	 */
+	@Override
+	public void onThreadCompleted(EventState state, Object result) {
+		if (result instanceof ZeroClickResponse) {
+			manageResult((ZeroClickResponse)result);
+		}
+		loadingItem.setVisible(false);
+	}
+
+	/* (non-Javadoc)
+	 * @see net.nakama.duckdroid.ui.fragment.BangFragment.OnBangLineSelectedListener#onBangSelected(java.lang.String)
+	 */
+	@Override
+	public void onBangSelect(String bang) {
+		setSearchQuery(bang, bangSubmit, true);
+	}
+	
+	private void setSearchQuery(String query, boolean submit, boolean addToCurrentValue) {
+		SearchView search = (SearchView) findViewById(R.id.menu_search);
+		String v = query;
+		if (addToCurrentValue) {
+			v = search.getQuery().toString() + " " + v;
+		}
+		search.setQuery(v, submit);
+	}
+
+	/* (non-Javadoc)
+	 * @see net.nakama.duckdroid.ui.fragment.HistoryFragment.OnHistoryLineSelectedListener#onHistorySelect(java.lang.String)
+	 */
+	@Override
+	public void onHistorySelect(String userQuery) {
+		setSearchQuery(userQuery, true, false);
 	}
 }
