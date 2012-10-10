@@ -52,7 +52,7 @@ public class ResultFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		Result r = this.result.getFlatResults().get(position);
 		Uri uri = Uri.parse(r.getUrl());
-		Intent browser = new Intent(Intent.ACTION_WEB_SEARCH, uri);
+		Intent browser = new Intent(Intent.ACTION_VIEW, uri);
 		startActivity(browser);
 	}
 }

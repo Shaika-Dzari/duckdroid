@@ -50,6 +50,7 @@ public class ResultRowAdapter extends ArrayAdapter<ResultRow> {
 		ResultRow r = this.rows.get(position);
 		
 		if (r != null) {
+			
 			TextView text = (TextView) view.findViewById(R.id.text);
 			TextView url = (TextView) view.findViewById(R.id.url);
 			

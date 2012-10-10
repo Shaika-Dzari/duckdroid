@@ -139,7 +139,7 @@ public class Duckdroid extends FragmentActivity implements BangFragment.OnBangLi
 	
 	private void startBrowserIntent(String url) {
 		Uri uri = Uri.parse(url);
-		Intent browser = new Intent(Intent.ACTION_WEB_SEARCH, uri);
+		Intent browser = new Intent(Intent.ACTION_VIEW, uri);
 		startActivity(browser);
 	}
 	
