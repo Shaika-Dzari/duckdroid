@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_bang_reuters"
+          android:title="!reuters"/>
+    <item android:id="@+id/menu_bang_nyt"
+          android:title="!nyt"/>
+    <item android:id="@+id/menu_bang_guardian"
+          android:title="!guardian"/>
+    <item android:id="@+id/menu_bang_msnbc"
+          android:title="!msnbc"/>
+    <item android:id="@+id/menu_bang_foxnews"
+          android:title="!foxnews"/>
+    <item android:id="@+id/menu_bang_cnn"
+          android:title="!cnn"/>
+    <item android:id="@+id/menu_bang_bbc"
+          android:title="!bbc"/>
+    <item android:id="@+id/menu_bang_cbc"
+          android:title="!cbc"/>
+</menu>

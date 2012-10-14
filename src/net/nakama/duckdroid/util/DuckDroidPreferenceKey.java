@@ -16,6 +16,6 @@ public abstract class DuckDroidPreferenceKey {
 	public static final String PREFERENCE_HISTORY = "pref_history";
 	public static final String PREFERENCE_BANGPROFILE = "pref_bangprofile";
 	public static final String PREFERENCE_BANGSUBMIT = "pref_bangsubmit";
-	
+	public static final String PREFERENCE_SAFEOFF = "pref_safeoff";
 	
 }

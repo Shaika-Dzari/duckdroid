@@ -7,6 +7,13 @@
       android:defaultValue="true"
     />
     
+    <CheckBoxPreference
+      android:key="pref_safeoff"
+      android:title="@string/pref_safeoff"
+      android:summary="@string/pref_safeoff_summary"
+      android:defaultValue="true"
+    />
+    
     <ListPreference
       android:key="pref_bangprofile"
       android:title="@string/pref_bangprofile"

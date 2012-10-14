@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:id="@+id/menu_bang_ikea"
+          android:title="!ikea"/>
+	<item android:id="@+id/menu_bang_target"
+          android:title="!target"/>
+	<item android:id="@+id/menu_bang_costco"
+          android:title="!costco"/>
+	<item android:id="@+id/menu_bang_walmart"
+          android:title="!walmart"/>
+	<item android:id="@+id/menu_bang_macys"
+          android:title="!macys"/>
+	<item android:id="@+id/menu_bang_tigerdirect"
+          android:title="!tigerdirect"/>
+	<item android:id="@+id/menu_bang_bestbuy"
+          android:title="!bestbuy"/>
+	<item android:id="@+id/menu_bang_staples"
+          android:title="!staples"/>
+	<item android:id="@+id/menu_bang_ebay"
+          android:title="!ebay"/>
+	<item android:id="@+id/menu_bang_ncix"
+          android:title="!ncix"/>
+	<item android:id="@+id/menu_bang_amca"
+          android:title="!amca"/>
+	<item android:id="@+id/menu_bang_a"
+          android:title="!a"/>
+</menu>

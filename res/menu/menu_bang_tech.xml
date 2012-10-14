@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_bang_slashdot"
+          android:title="!/."/>
+    <item android:id="@+id/menu_bang_ars"
+          android:title="!ars"/>
+    <item android:id="@+id/menu_bang_github"
+          android:title="!github"/>
+    <item android:id="@+id/menu_bang_perl"
+          android:title="!perl"/>
+	<item android:id="@+id/menu_bang_cpp"
+          android:title="!cpp"/>
+	<item android:id="@+id/menu_bang_ruby"
+          android:title="!ruby"/>
+	<item android:id="@+id/menu_bang_py"
+          android:title="!py"/>
+	<item android:id="@+id/menu_bang_css"
+          android:title="!css"/>
+	<item android:id="@+id/menu_bang_mdn"
+          android:title="!mdn"/>
+	<item android:id="@+id/menu_bang_java"
+          android:title="!java"/>
+	<item android:id="@+id/menu_bang_android"
+          android:title="!android"/>
+	<item android:id="@+id/menu_bang_appledev"
+          android:title="!appledev"/>
+	<item android:id="@+id/menu_bang_so"
+          android:title="!so"/>
+</menu>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_bang_ups"
+          android:title="!ups"/>
+	<item android:id="@+id/menu_bang_purolator"
+          android:title="!purolator"/>
+	<item android:id="@+id/menu_bang_fedex"
+          android:title="!fedex"/>
+	<item android:id="@+id/menu_bang_capost"
+          android:title="!capost"/>
+	<item android:id="@+id/menu_bang_sh"
+          android:title="!sh"/>
+	<item android:id="@+id/menu_bang_indeed"
+          android:title="!indeed"/>
+	<item android:id="@+id/menu_bang_myspace"
+          android:title="!myspace"/>
+	<item android:id="@+id/menu_bang_reddit"
+          android:title="!reddit"/>
+	<item android:id="@+id/menu_bang_fb"
+          android:title="!fb"/>
+	<item android:id="@+id/menu_bang_li"
+          android:title="!li"/>
+	<item android:id="@+id/menu_bang_tw"
+          android:title="!tw"/>
+	<item android:id="@+id/menu_bang_yt"
+          android:title="!yt"/>
+	<item android:id="@+id/menu_bang_gt"
+          android:title="!gt"/>
+	<item android:id="@+id/menu_bang_g"
+          android:title="!g"/>
+</menu>

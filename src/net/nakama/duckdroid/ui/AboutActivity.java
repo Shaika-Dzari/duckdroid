@@ -1,5 +1,5 @@
 /*
- * MyPreferenceFragment.java
+ * AboutActivity.java
  * 
  * This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
@@ -8,19 +8,20 @@
  * See http://sam.zoy.org/wtfpl/COPYING for more details. 
  * 
  * @author shaika-dzari
- * @since 2012-10-07
+ * @since 2012-10-14
  */ 
-package net.nakama.duckdroid.ui.fragment;
+package net.nakama.duckdroid.ui;
 
 import net.nakama.duckdroid.R;
+import android.app.Activity;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 
-public class MyPreferenceFragment extends PreferenceFragment {
+public class AboutActivity extends Activity {
 
-    @Override
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+        setContentView(R.layout.activity_about);
     }
+	
 }

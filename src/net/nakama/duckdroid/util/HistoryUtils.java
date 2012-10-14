@@ -91,7 +91,17 @@ public class HistoryUtils extends SQLiteOpenHelper {
 		return lst;
 	}
 	
-	public void close() {
-		
+	public long delete(String id) {
+		SQLiteDatabase db = getWritableDatabase();
+		long rowcount = db.delete(HistoryEntry.TABLE_NAME, HistoryEntry.TABLE_NAME + "=?" + id, new String[]{id});
+		db.close();
+		return rowcount;
+	}
+	
+	public long deleteAll() {
+		SQLiteDatabase db = getWritableDatabase();
+		long rowcount = db.delete(HistoryEntry.TABLE_NAME, null, null);
+		db.close();
+		return rowcount;
 	}
 }

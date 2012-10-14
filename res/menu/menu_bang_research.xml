@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_bang_tripadvisor"
+          android:title="!tripadvisor"/>
+	<item android:id="@+id/menu_bang_fd"
+          android:title="!fd"/>
+	<item android:id="@+id/menu_bang_quotes"
+          android:title="!quotes"/>
+	<item android:id="@+id/menu_bang_gutenberg"
+          android:title="!gutenberg"/>
+	<item android:id="@+id/menu_bang_artist"
+          android:title="!artist"/>
+	<item android:id="@+id/menu_bang_findlaw"
+          android:title="!findlaw"/>
+	<item android:id="@+id/menu_bang_cdc"
+          android:title="!cdc"/>
+	<item android:id="@+id/menu_bang_allrecipes"
+          android:title="!allrecipes"/>
+	<item android:id="@+id/menu_bang_mathoverflow"
+          android:title="!mathoverflow"/>
+	<item android:id="@+id/menu_bang_academic"
+          android:title="!academic"/>
+	<item android:id="@+id/menu_bang_nasa"
+          android:title="!nasa"/>
+	<item android:id="@+id/menu_bang_w"
+          android:title="!w"/>
+</menu>

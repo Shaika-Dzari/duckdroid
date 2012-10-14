@@ -17,13 +17,11 @@ import java.util.List;
 import net.nakama.duckdroid.R;
 import net.nakama.duckdroid.datamodel.HistoryEntry;
 import net.nakama.duckdroid.ui.adapter.HistoryRowAdapter;
-import net.nakama.duckdroid.ui.fragment.BangFragment.OnBangLineSelectedListener;
 
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class HistoryFragment extends ListFragment {
@@ -41,11 +39,6 @@ public class HistoryFragment extends ListFragment {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // We need to use a different list item layout for devices older than Honeycomb
-        //int layout = android.R.layout.simple_list_item_activated_1;
-
-        // Create an array adapter for the list view, using the Ipsum headlines array
         setListAdapter(new HistoryRowAdapter(getActivity(), R.layout.historyrow, this.historyList));
         
     }

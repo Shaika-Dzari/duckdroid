@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"> 
+	<item android:id="@+id/menu_bang_ncix"
+          android:title="!ncix"/>
+	<item android:id="@+id/menu_bang_amca"
+          android:title="!amca"/>
+	<item android:id="@+id/menu_bang_yt"
+          android:title="!yt"/>
+	<item android:id="@+id/menu_bang_imdb"
+          android:title="!imdb"/>
+	<item android:id="@+id/menu_bang_anidb"
+          android:title="!anidb"/>
+	<item android:id="@+id/menu_bang_ars"
+          android:title="!ars"/>
+    <item android:id="@+id/menu_bang_w"
+          android:title="!w"/>
+	<item android:id="@+id/menu_bang_man"
+          android:title="!man"/>
+	<item android:id="@+id/menu_bang_so"
+          android:title="!so"/>
+	<item android:id="@+id/menu_bang_android"
+          android:title="!android"/>
+	<item android:id="@+id/menu_bang_java"
+          android:title="!java"/>
+	<item android:id="@+id/menu_bang_mdn"
+          android:title="!mdn"/>
+    <item android:id="@+id/menu_bang_g"
+          android:title="!g"/>
+</menu>

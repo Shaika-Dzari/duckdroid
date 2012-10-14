@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    		android:orientation="horizontal">
+	 -->
+	<LinearLayout 
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:paddingTop="3dp"
+	    android:paddingBottom="3dp"
+	    android:layout_weight="1" >
+	    
+	    <TextView 
+	        android:id="@+id/hr_userquery"
+	        android:textSize="16sp"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        />
+	
+	    <TextView 
+	        android:id="@+id/hr_insertdate"
+	        android:textSize="12sp"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:textColor="#777777"
+	        />
+	    
+	</LinearLayout>
+    <!-- 
+	<ImageButton android:src="@drawable/navigation_cancel"
+           		 android:contentDescription="@string/btn_history_delete"
+           		 android:id="@+id/btn_history_del"
+           		 android:layout_width="wrap_content"
+           	   	 android:layout_height="match_parent"
+           	   	 style="?android:attr/borderlessButtonStyle"
+           	   	  />
     
-    <TextView 
-        android:id="@+id/hr_userquery"
-        android:textSize="16sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-    <TextView 
-        android:id="@+id/hr_insertdate"
-        android:textSize="12sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#777777"
-        />
     
 </LinearLayout>
+ -->

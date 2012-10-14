@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:id="@+id/menu_bang_metalstorm"
+          android:title="!metalstorm"/>
+	<item android:id="@+id/menu_bang_jamendo"
+          android:title="!jamendo"/>
+	<item android:id="@+id/menu_bang_amazonmp3"
+          android:title="!amazonmp3"/>
+	<item android:id="@+id/menu_bang_7digital"
+          android:title="!7digital"/>
+	<item android:id="@+id/menu_bang_allmusic"
+          android:title="!allmusic"/>
+	<item android:id="@+id/menu_bang_crunchyroll"
+          android:title="!crunchyroll"/>
+	<item android:id="@+id/menu_bang_hulu"
+          android:title="!hulu"/>
+	<item android:id="@+id/menu_bang_dailymotion"
+          android:title="!dailymotion"/>
+	<item android:id="@+id/menu_bang_yt"
+          android:title="!yt"/>
+</menu>

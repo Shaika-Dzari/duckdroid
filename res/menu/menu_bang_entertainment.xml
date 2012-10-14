@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_bang_osub"
+          android:title="!osub"/>
+	<item android:id="@+id/menu_bang_bakabt"
+          android:title="!bakabt"/>
+	<item android:id="@+id/menu_bang_4chan"
+          android:title="!4chan"/>
+	<item android:id="@+id/menu_bang_tvguide"
+          android:title="!tvguide"/>
+	<item android:id="@+id/menu_bang_espn"
+          android:title="!espn"/>
+	<item android:id="@+id/menu_bang_netflix"
+          android:title="!netflix"/>
+	<item android:id="@+id/menu_bang_rt"
+          android:title="!rt"/>
+	<item android:id="@+id/menu_bang_allocine"
+          android:title="!allocine"/>
+	<item android:id="@+id/menu_bang_allmovie"
+          android:title="!allmovie"/>
+	<item android:id="@+id/menu_bang_imdb"
+          android:title="!imdb"/>
+	<item android:id="@+id/menu_bang_minecraft"
+          android:title="!minecraft"/>
+	<item android:id="@+id/menu_bang_gamespot"
+          android:title="!gamespot"/>
+	<item android:id="@+id/menu_bang_xkcd"
+          android:title="!xkcd"/>
+	<item android:id="@+id/menu_bang_slashdot"
+          android:title="!/."/>
+</menu>
