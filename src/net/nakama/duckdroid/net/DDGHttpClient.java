@@ -15,12 +15,14 @@ package net.nakama.duckdroid.net;
 import net.nakama.duckdroid.ui.listeners.EventState;
 import net.nakama.duckdroid.ui.listeners.ThreadCompletedListener;
 import net.nakama.duckquery.DuckQuery;
+import net.nakama.duckquery.net.request.Request;
+//import net.nakama.duckquery.net.request.Request;
 import net.nakama.duckquery.net.response.ZeroClickResponse;
 import android.os.AsyncTask;
 import android.util.Log;
 
 
-public class DDGHttpClient extends AsyncTask<String, Void, ZeroClickResponse> {
+public class DDGHttpClient extends AsyncTask<Request, Void, ZeroClickResponse> {
 
 	private static final String TAG = "DDGHttpClient";
 	private ThreadCompletedListener mainCallbackListener;
@@ -34,7 +36,7 @@ public class DDGHttpClient extends AsyncTask<String, Void, ZeroClickResponse> {
 	 * @see android.os.AsyncTask#doInBackground(Params[])
 	 */
 	@Override
-	protected ZeroClickResponse doInBackground(String... params) {
+	protected ZeroClickResponse doInBackground(Request... params) {
 		ZeroClickResponse response = null;
 		
 		DuckQuery query = new DuckQuery();

@@ -24,6 +24,10 @@ import net.nakama.duckdroid.ui.listeners.ThreadCompletedListener;
 import net.nakama.duckdroid.util.DateUtils;
 import net.nakama.duckdroid.util.DuckDroidPreferenceKey;
 import net.nakama.duckdroid.util.HistoryUtils;
+import net.nakama.duckquery.net.request.Request;
+//import net.nakama.duckquery.net.client.CallOption;
+//import net.nakama.duckquery.net.client.DuckDuckGoOption;
+//import net.nakama.duckquery.net.request.Request;
 import net.nakama.duckquery.net.response.ZeroClickResponse;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -68,110 +72,6 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
 	
 	private OnMenuItemClickListener bangListener = new OnMenuItemClickListener() {
 		
-		/*
-		  ncix
-		  amca
-		  yt
-		  imdb
-		  anidb
-		  ars
-		  w
-		  man
-		  android
-		  java
-		  mdn
-		  g
-		  osub
-		  bakabt
-		  4chan
-		  tvguide
-		  espn
-		  netflix
-		  rt
-		  allocine
-		  allmovie
-		  imdb
-		  minecraft
-		  gamespot
-		  xkcd
-		  /.
-		  metalstorm
-		  jamendo
-		  amazonmp3
-		  7digital
-		  allmusic
-		  crunchyroll
-		  hulu
-		  dailymotion
-		  reuters
-		  nyt
-		  guardian
-		  msnbc
-		  foxnews
-		  cnn
-		  bbc
-		  cbc
-		  ups
-		  purolator
-		  fedex
-		  capost
-		  sh
-		  indeed
-		  myspace
-		  reddit
-		  fb
-		  li
-		  tw
-		  gt
-		  tripadvisor
-		  fd
-		  quotes
-		  gutenberg
-		  artist
-		  findlaw
-		  cdc
-		  allrecipes
-		  mathoverflow
-		  academic
-		  nasa
-		  ikea
-		  target
-		  costco
-		  walmart
-		  macys
-		  tigerdirect
-		  bestbuy
-		  staples
-		  ebay
-		  a
-		  github
-		  perl
-		  cpp
-		  ruby
-		  py
-		  css
-		  appledev
-		  so
-		 */
-		
-		/*
-		  ncix
-		  amca
-		  yt
-		  imdb
-		  anidb
-		  ars
-		  w
-		  man
-		  android
-		  java
-		  mdn
-		  g
-		  osub
-		  bakabt
-		  
-		 */
-		
 		
 		@Override
 		public boolean onMenuItemClick(MenuItem item) {
@@ -180,6 +80,7 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
 			switch (item.getItemId()) {
 			case R.id.menu_bang_bakabt: bang = "!bakabt"; break;
 	        case R.id.menu_bang_osub: bang = "!osub"; break;
+	        case R.id.menu_bang_safeoff: bang = "!safeoff"; break;
 	        case R.id.menu_bang_mdn: bang = "!mdn"; break;
 	        case R.id.menu_bang_java: bang = "!java"; break;
 	        case R.id.menu_bang_android: bang = "!android"; break;
@@ -325,10 +226,6 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_duckdroid, menu);
       
-        //getMenuInflater().inflate(, menu)
-        
-       
-        
         return true;
     }
     
@@ -380,21 +277,46 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
     private void search(String query, boolean logToHistory) {
     	toggleLoading(true);
     	DDGHttpClient httpClient = new DDGHttpClient(this);
-    	httpClient.execute(new String[]{query});
+    	Request r = createRequest(query);
+    	
+    	httpClient.execute(r);
     	
     	if (logToHistory) 
-    		addToHistory(query);
+    		addToHistory(r);    	
     }
     
-    private void addToHistory(String userQuery) {
-    	if (this.prefSafeoff && userQuery.indexOf("!safeoff") == -1) {
-    		ContentValues v = new ContentValues();
-    		v.put(HistoryEntry.COLUMN_QUERY, userQuery);
-    		v.put(HistoryEntry.COLUMN_INSERTDATE, DateUtils.format(new Date()));
-    		
-    		historyUtils.insert(v);    		
+    private Request createRequest(String query) {
+    	Request r;
+    	// TODO: This is ugly, DuckQuery should manage this part
+    	if (query.toLowerCase().indexOf("!safeoff") == -1) {
+    		r = Request.stdRequest(query);
+    	} else {
+    		query = query.toLowerCase().replace("!safeoff", "");
+    		r = Request.stdRequest(query);
+    		r.setSafeOff(true);
     	}
+    	
+    	return r;
+    }
+    
+    
+    private void addToHistory(Request r) {
+    	
+    	if (prefWithHistory) {
+    		boolean ok = true;
     		
+    		if (prefSafeoff && r.isSafeOff()) 
+    			ok = false;
+    		
+    		if (ok) {
+    			ContentValues v = new ContentValues();
+    			v.put(HistoryEntry.COLUMN_QUERY, r.getQuery());
+    			v.put(HistoryEntry.COLUMN_INSERTDATE, DateUtils.format(new Date()));
+    			
+    			historyUtils.insert(v);    		    			
+    		}
+    	}
+    	
     }
 
 	private void toggleLoading(boolean visible) {
