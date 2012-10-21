@@ -31,7 +31,6 @@ public final class R {
         public static final int ic_launcher=0x7f02000a;
         public static final int navigation_cancel=0x7f02000b;
         public static final int search_bar_bg=0x7f02000c;
-        public static final int widget_preview=0x7f02000d;
     }
     public static final class id {
         public static final int abstracttext=0x7f0a000a;
