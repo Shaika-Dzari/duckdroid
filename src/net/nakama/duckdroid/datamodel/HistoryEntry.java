@@ -13,9 +13,11 @@ package net.nakama.duckdroid.datamodel;
 
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.BaseColumns;
 
-public class HistoryEntry implements BaseColumns {
+public class HistoryEntry implements BaseColumns, Parcelable {
 	public static final String TABLE_NAME = "duckdroidhistory";
 	public static final String COLUMN_INSERTDATE = "insertdate";
 	public static final String COLUMN_QUERY = "userquery";
@@ -26,5 +28,24 @@ public class HistoryEntry implements BaseColumns {
 	public HistoryEntry(String insertdate, String userQuery) {
 		this.insertdate = insertdate;
 		this.userQuery = userQuery;
+	}
+
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#describeContents()
+	 */
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
+	 */
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		dest.writeString(userQuery);
+		dest.writeString(insertdate);
 	}
 }

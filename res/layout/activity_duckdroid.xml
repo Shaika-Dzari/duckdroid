@@ -16,8 +16,8 @@
             	   android:contentDescription="@string/app_name"
             	   android:layout_width="wrap_content"
             	   android:layout_height="match_parent"
-            	   android:paddingLeft="5dp"
-            	   android:paddingRight="5dp" />
+            	   android:paddingLeft="2dp"
+            	    />
         
         <ProgressBar android:id="@+id/pb_loading"
             		 android:visibility="invisible"
@@ -29,20 +29,30 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:inputType="textShortMessage|textAutoCorrect|textAutoComplete"
-        	android:imeOptions="actionSearch"
-            android:hint="@string/edit_search_hint" />
+            android:hint="@string/edit_search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="textShortMessage|textAutoCorrect|textAutoComplete" />
         
+        <ImageButton android:src="@drawable/ic_action_overflow"
+            		 android:contentDescription="@string/title_activity_pref"
+            		 android:id="@+id/btn_setting"
+            		 android:layout_width="wrap_content"
+            	   	 android:layout_height="match_parent"
+            	   	 style="?android:attr/borderlessButtonStyle"
+            	   	 android:onClick="btnshowPopupSetting" />
+        
+        <!-- 
         <ImageButton android:src="@drawable/action_search"
             		 android:contentDescription="@string/btn_search_text"
             		 android:id="@+id/btn_search"
             		 android:layout_width="wrap_content"
             	   	 android:layout_height="match_parent"
             	   	 style="?android:attr/borderlessButtonStyle"
-            	   	 android:paddingLeft="5dp"
-            	   	 android:paddingRight="5dp"
-            	   	 android:onClick="btnSearch" />
-        	
+            	   	 android:paddingLeft="2dp"
+            	   	 android:paddingRight="2dp"
+            	   	 android:onClick="btnSearch" 
+            	   	 />
+         -->
     </LinearLayout>	 
        	
     <LinearLayout 
@@ -55,6 +65,7 @@
     		android:padding="10dp"
     		android:background="#ededed"
     		android:layout_marginBottom="40dp"
+    		
     	/>	  
     
     <LinearLayout 
@@ -88,13 +99,7 @@
             	   	 android:layout_weight="1" 
             	   	 android:onClick="btnshowPopupBang"/>
         
-        <ImageButton android:src="@drawable/action_settings"
-            		 android:contentDescription="@string/title_activity_pref"
-            		 android:id="@+id/btn_setting"
-            		 android:layout_width="wrap_content"
-            	   	 android:layout_height="match_parent"
-            	   	 style="?android:attr/borderlessButtonStyle"
-            	   	 android:onClick="btnshowPopupSetting" />
+        
         
     </LinearLayout>
     

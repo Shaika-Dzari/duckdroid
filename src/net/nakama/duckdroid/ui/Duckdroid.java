@@ -31,6 +31,7 @@ import net.nakama.duckquery.net.response.ZeroClickResponse;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -44,12 +45,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHistoryLineSelectedListener,
 															   ThreadCompletedListener,
@@ -58,6 +61,7 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
 	private static final String TAG = "Duckdroid";
 	//private BangFragment bangFragment;
 	private HistoryFragment historyFragment;
+	//private ResultFragment resultFragment;
 	private HistoryUtils historyUtils;
 	
 	// Preferences 
@@ -66,6 +70,24 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
 	private boolean prefBangSubmit = true;
 	private boolean prefSafeoff = true;
 	private int prefBangMenuId = -1;
+	
+	private OnEditorActionListener editViewListener = new TextView.OnEditorActionListener() {
+		@Override
+		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+			if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+				clearFocus(v);
+				String userQuery = v.getText().toString();
+				search(userQuery, true);
+				return true;
+			}
+			return false;
+		}
+	};
+	
+	private void clearFocus(View v) {
+		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+	}
 	
 	
 	
@@ -169,26 +191,30 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_duckdroid);
         
+        setContentView(R.layout.activity_duckdroid);
+        historyUtils = new HistoryUtils(this);        	
+        	
         // Editext event
         EditText search = (EditText) findViewById(R.id.txt_search);
-        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-			
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-					String userQuery = v.getText().toString();
-					search(userQuery, true);
-					
-		            return true;
-		        }
-		        return false;
-
-			}
-		});
+        search.setOnEditorActionListener(editViewListener);
+       
+        	
         
-        historyUtils = new HistoryUtils(this);
+        
+        // Add History
+        /*
+        if (prefWithHistory && historyFragment == null) {
+        	
+        	historyFragment = new HistoryFragment(this.historyUtils.select());
+        	trx.add(R.id.lt_main, historyFragment);   
+        	
+        } else if (!prefWithHistory && historyFragment != null) {
+        	trx.remove(historyFragment);
+        	historyFragment = null;
+        }
+        */
+        
         
     }
     
@@ -203,24 +229,20 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
 		this.prefSafeoff = sharedPref.getBoolean(DuckDroidPreferenceKey.PREFERENCE_SAFEOFF, true);
 		this.prefBangMenuId = getResources().getIdentifier(this.prefBangProfile, "menu", "net.nakama.duckdroid");
 		
-		
-		// Fragment setup
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction trx = manager.beginTransaction();
        
-        // Add History
-        if (prefWithHistory && historyFragment == null) {
-        	
-        	historyFragment = new HistoryFragment(this.historyUtils.select());
-        	trx.add(R.id.lt_main, historyFragment);        	
-        } else if (!prefWithHistory && historyFragment != null) {
-        	trx.remove(historyFragment);
-        	historyFragment = null;
+        if (prefWithHistory) {
+        	this.historyFragment = new HistoryFragment(this.historyUtils.select());
+        	getFragmentManager().beginTransaction().add(R.id.lt_main, this.historyFragment).commit();
         }
-        
-        trx.commit();
     }
-
+    
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+    	super.onSaveInstanceState(outState);
+    	//getFragmentManager().putFragment(outState, HistoryFragment.class.getName(), historyFragment);
+    }
+    
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_duckdroid, menu);
@@ -244,6 +266,7 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
     }
 
     public void btnSearch(View view) {
+    	clearFocus(view);
         EditText txtQuery = (EditText) findViewById(R.id.txt_search);
         String userQuery = txtQuery.getText().toString();
         search(userQuery, true);
@@ -308,11 +331,13 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
     			ok = false;
     		
     		if (ok) {
+    			HistoryEntry h = new HistoryEntry(DateUtils.format(new Date()), r.getQuery());
     			ContentValues v = new ContentValues();
-    			v.put(HistoryEntry.COLUMN_QUERY, r.getQuery());
-    			v.put(HistoryEntry.COLUMN_INSERTDATE, DateUtils.format(new Date()));
+    			v.put(HistoryEntry.COLUMN_QUERY, h.userQuery);
+    			v.put(HistoryEntry.COLUMN_INSERTDATE, h.insertdate);
     			
-    			historyUtils.insert(v);    		    			
+    			historyUtils.insert(v);   
+    			this.historyFragment.add(h);
     		}
     	}
     	
@@ -333,10 +358,6 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
 				startBrowserIntent(result.getRedirect());
 				
 		} else if (result.getFlatResults().size() == 0) {
-			FragmentManager manager = getFragmentManager();
-			FragmentTransaction trx = manager.beginTransaction();
-			trx.remove(historyFragment);
-			trx.commit();			
 			
 			TextView nt = new TextView(this);
 			nt.setText("^_^ No result...");
@@ -345,14 +366,13 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
 			ll.addView(nt);
 			
 		} else { 
-			// Fragment setup
-			LinearLayout ll = (LinearLayout) findViewById(R.id.lt_main);
-			ll.removeAllViews();
+			
 			FragmentManager manager = getFragmentManager();
 			FragmentTransaction trx = manager.beginTransaction();
-			ResultFragment rf = new ResultFragment(result);
-			//trx.replace(R.id.lt_main, rf);
-			trx.add(R.id.lt_main, rf);
+			ResultFragment resultFragment = new ResultFragment(result);
+			trx.replace(R.id.lt_main, resultFragment);
+			//trx.add(R.id.lt_main, resultFragment);
+			trx.addToBackStack(null);
 			trx.commit();			
 		}
 	}
@@ -383,7 +403,7 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
 		}
 		txtQuery.setText(v);
 		if (submit)
-			search(v, false);
+			search(v, true);
 	}
 
 	/* (non-Javadoc)
@@ -406,11 +426,8 @@ public class Duckdroid extends FragmentActivity implements HistoryFragment.OnHis
             break;
         case R.id.menu_clear_hist :
         	this.historyUtils.deleteAll();
-            FragmentTransaction trx = getFragmentManager().beginTransaction();
-            trx.remove(historyFragment);
-            historyFragment = null;
-            trx.commit();
-            
+        	this.historyFragment.clear();
+        	
         	break;
         case R.id.menu_about :
         	Intent about = new Intent(this, AboutActivity.class);

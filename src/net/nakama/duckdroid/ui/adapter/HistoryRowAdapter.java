@@ -56,4 +56,15 @@ public class HistoryRowAdapter extends ArrayAdapter<HistoryEntry> {
 		return view;
 	}
 	
+	public void clear() {
+		this.historyEntries.clear();
+		this.notifyDataSetChanged();
+	}
+	
+	public void add(HistoryEntry h) {
+		if (this.historyEntries != null) {
+			this.historyEntries.add(h);
+			this.notifyDataSetChanged();
+		}
+	}
 }

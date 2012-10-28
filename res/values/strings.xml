@@ -27,12 +27,14 @@
 
     <!-- Preferences -->
     <string name="title_activity_my_preference">Preferences</string>
+    <string name="title_preference_history">History</string>
+    <string name="title_preference_bang">Bang</string>
     <string name="pref_history">History</string>
-    <string name="pref_history_summary">Save recents queries</string>
+    <string name="pref_history_summary">Save recent queries</string>
     <string name="pref_bangprofile">!bang profile</string>
     <string name="pref_bangprofile_summary">Choose a specific type of !bang</string>
-    <string name="pref_bangsubmit">!bang submit</string>
-    <string name="pref_bangsubmit_summary">Perform query immediately after a !bang</string>
+    <string name="pref_bangsubmit">!bang query</string>
+    <string name="pref_bangsubmit_summary">Search immediately after a !bang</string>
     <string name="pref_safeoff">Skip !safeoff</string>
     <string name="pref_safeoff_summary">Don\'t add !safeoff query to history</string>
 

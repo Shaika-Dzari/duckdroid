@@ -11,6 +11,7 @@
  */ 
 package net.nakama.duckdroid.ui.fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.nakama.duckdroid.R;
@@ -20,25 +21,46 @@ import net.nakama.duckdroid.ui.adapter.HistoryRowAdapter;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ListView;
 
 public class HistoryFragment extends ListFragment {
+	private static final String HISTORYKEY = "hk";
 	private List<HistoryEntry> historyList;
 	private OnHistoryLineSelectedListener aCallback;
+	private HistoryRowAdapter adapter;
 	
 	public interface OnHistoryLineSelectedListener {
 		public void onHistorySelect(String userQuery);
+	}
+	
+	public HistoryFragment() {
+		historyList = new ArrayList<HistoryEntry>();
 	}
 	
 	public HistoryFragment(List<HistoryEntry> historyList) {
 		this.historyList = historyList;
 	}
 	
+	public void clear() {
+		if (this.historyList != null) {
+			adapter.clear();
+		}
+	}
+	
+	public void add(HistoryEntry h) {
+		adapter.add(h);
+	}
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new HistoryRowAdapter(getActivity(), R.layout.historyrow, this.historyList));
+        if (savedInstanceState != null) {
+        	historyList = savedInstanceState.getParcelableArrayList(HISTORYKEY);
+        }
+        adapter = new HistoryRowAdapter(getActivity(), R.layout.historyrow, this.historyList);
+        setListAdapter(adapter);
         
     }
 	
@@ -51,6 +73,12 @@ public class HistoryFragment extends ListFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHistoryLineSelectedListener");
         }
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putParcelableArrayList(HISTORYKEY, (ArrayList<? extends Parcelable>) this.historyList);
 	}
 	
 	@Override

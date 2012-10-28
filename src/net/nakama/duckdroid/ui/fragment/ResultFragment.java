@@ -33,6 +33,11 @@ public class ResultFragment extends ListFragment {
 	
 	public ResultFragment(ZeroClickResponse result) {
 		this.result = result;
+		setRetainInstance(true);
+	}
+	
+	public ResultFragment() {
+		this.result = new ZeroClickResponse(null);
 	}
 	
 	@Override
